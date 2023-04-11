@@ -217,6 +217,12 @@ module.exports = function(formio, items, done) {
      * @return {*}
      */
     whatTemplate: function(done) {
+      // HACK: hardcoding location of template file
+      // Otherwise the path has to be enterd manually and
+      // Also, to enter it manually, you must not set the ROOT_EMAIL variable
+      templateFile = './project.json';
+      return done();
+
       if (process.env.ROOT_EMAIL) {
         templateFile = 'client';
         done();
