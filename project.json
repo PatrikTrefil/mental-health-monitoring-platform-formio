@@ -28,7 +28,8 @@
     },
     "zamestnanec": {
       "title": "Zamestnanec",
-      "description": ""
+      "description": "",
+      "admin": true
     }
   },
   "resources": {
@@ -74,11 +75,7 @@
       "access": [
         {
           "type": "read_all",
-          "roles": [
-            "anonymous",
-            "authenticated",
-            "administrator"
-          ]
+          "roles": ["anonymous", "authenticated", "administrator"]
         }
       ],
       "components": [
@@ -158,11 +155,7 @@
       "access": [
         {
           "type": "read_all",
-          "roles": [
-            "anonymous",
-            "authenticated",
-            "administrator"
-          ]
+          "roles": ["anonymous", "authenticated", "administrator"]
         }
       ],
       "components": [
@@ -242,11 +235,7 @@
       "access": [
         {
           "type": "read_all",
-          "roles": [
-            "anonymous",
-            "authenticated",
-            "administrator"
-          ]
+          "roles": ["anonymous", "authenticated", "administrator"]
         }
       ],
       "components": [
@@ -309,8 +298,8 @@
       ],
       "submissionAccess": [
         {
-          "type" : "create_own",
-          "roles" : ["anonymous"]
+          "type": "create_own",
+          "roles": ["anonymous"]
         }
       ],
       "components": [
