@@ -41,19 +41,19 @@
       "submissionAccess": [
         {
           "type": "create_all",
-          "roles": ["administrator"]
+          "roles": ["administrator", "zamestnanec"]
         },
         {
           "type": "read_all",
-          "roles": ["administrator"]
+          "roles": ["administrator", "zamestnanec"]
         },
         {
           "type": "update_all",
-          "roles": ["administrator"]
+          "roles": ["administrator", "zamestnanec"]
         },
         {
           "type": "delete_all",
-          "roles": ["administrator"]
+          "roles": ["administrator", "zamestnanec"]
         },
         {
           "type": "create_own",
@@ -61,7 +61,7 @@
         },
         {
           "type": "read_own",
-          "roles": []
+          "roles": ["klientPacient"]
         },
         {
           "type": "update_own",
@@ -69,13 +69,13 @@
         },
         {
           "type": "delete_own",
-          "roles": []
+          "roles": ["klientPacient"]
         }
       ],
       "access": [
         {
           "type": "read_all",
-          "roles": ["anonymous", "authenticated", "administrator"]
+          "roles": ["klientPacient", "administrator", "zamestnanec"]
         }
       ],
       "components": [
@@ -121,19 +121,19 @@
       "submissionAccess": [
         {
           "type": "create_all",
-          "roles": ["administrator"]
+          "roles": ["administrator", "zamestnanec"]
         },
         {
           "type": "read_all",
-          "roles": ["administrator"]
+          "roles": ["administrator", "zamestnanec"]
         },
         {
           "type": "update_all",
-          "roles": ["administrator"]
+          "roles": ["administrator", "zamestnanec"]
         },
         {
           "type": "delete_all",
-          "roles": ["administrator"]
+          "roles": ["administrator", "zamestnanec"]
         },
         {
           "type": "create_own",
@@ -155,7 +155,7 @@
       "access": [
         {
           "type": "read_all",
-          "roles": ["anonymous", "authenticated", "administrator"]
+          "roles": ["administrator", "zamestnanec"]
         }
       ],
       "components": [
@@ -235,7 +235,7 @@
       "access": [
         {
           "type": "read_all",
-          "roles": ["anonymous", "authenticated", "administrator"]
+          "roles": ["administrator"]
         }
       ],
       "components": [
@@ -357,13 +357,41 @@
       "access": [
         {
           "type": "read_all",
-          "roles": ["anonymous"]
+          "roles": ["zamestnanec", "administrator"]
         }
       ],
       "submissionAccess": [
         {
+          "type": "create_all",
+          "roles": ["zamestnanec", "administrator"]
+        },
+        {
+          "type": "read_all",
+          "roles": ["zamestnanec", "administrator"]
+        },
+        {
+          "type": "update_all",
+          "roles": ["zamestnanec", "administrator"]
+        },
+        {
+          "type": "delete_all",
+          "roles": ["zamestnanec", "administrator"]
+        },
+        {
           "type": "create_own",
-          "roles": ["anonymous"]
+          "roles": []
+        },
+        {
+          "type": "read_own",
+          "roles": []
+        },
+        {
+          "type": "update_own",
+          "roles": []
+        },
+        {
+          "type": "delete_own",
+          "roles": []
         }
       ],
       "components": [
@@ -409,13 +437,41 @@
       "access": [
         {
           "type": "read_all",
-          "roles": ["anonymous"]
+          "roles": ["zamestnanec", "administrator"]
         }
       ],
       "submissionAccess": [
         {
+          "type": "create_all",
+          "roles": ["zamestnanec", "administrator"]
+        },
+        {
+          "type": "read_all",
+          "roles": ["zamestnanec", "administrator"]
+        },
+        {
+          "type": "update_all",
+          "roles": ["zamestnanec", "administrator"]
+        },
+        {
+          "type": "delete_all",
+          "roles": ["zamestnanec", "administrator"]
+        },
+        {
           "type": "create_own",
-          "roles": ["anonymous"]
+          "roles": []
+        },
+        {
+          "type": "read_own",
+          "roles": []
+        },
+        {
+          "type": "update_own",
+          "roles": []
+        },
+        {
+          "type": "delete_own",
+          "roles": []
         }
       ],
       "components": [
