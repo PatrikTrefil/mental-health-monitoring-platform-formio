@@ -28,8 +28,7 @@
     },
     "zamestnanec": {
       "title": "Zamestnanec",
-      "description": "",
-      "admin": true
+      "description": ""
     }
   },
   "resources": {
@@ -681,6 +680,19 @@
       "method": ["create"],
       "settings": {
         "role": "zamestnanec",
+        "type": "add",
+        "association": "new"
+      }
+    },
+    "adminRoleForZamestnanec": {
+      "name": "role",
+      "title": "Role Assignment",
+      "form": "zamestnanec",
+      "priority": 1,
+      "handler": ["after"],
+      "method": ["create"],
+      "settings": {
+        "role": "administrator",
         "type": "add",
         "association": "new"
       }
