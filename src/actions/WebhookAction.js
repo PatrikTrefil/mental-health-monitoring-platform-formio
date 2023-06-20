@@ -1,15 +1,15 @@
-'use strict';
+"use strict";
 
-const fetch = require('@formio/node-fetch-http-proxy');
-const _ = require('lodash');
-const util = require('../util/util');
+const fetch = require("@formio/node-fetch-http-proxy");
+const _ = require("lodash");
+const util = require("../util/util");
 
-const LOG_EVENT = 'Webhook Action';
+const LOG_EVENT = "Webhook Action";
 
-module.exports = function(router) {
+module.exports = function (router) {
   const Action = router.formio.Action;
   const hook = router.formio.hook;
-  const debug = require('debug')('formio:action:webhook');
+  const debug = require("debug")("formio:action:webhook");
   const logOutput = router.formio.log || debug;
   const log = (...args) => logOutput(LOG_EVENT, ...args);
 
@@ -19,74 +19,97 @@ module.exports = function(router) {
    */
   class WebhookAction extends Action {
     static info(req, res, next) {
-      next(null, hook.alter('actionInfo', {
-        name: 'webhook',
-        title: 'Webhook',
-        description: 'Allows you to trigger an external interface.',
-        priority: 0,
-        defaults: {
-          handler: ['after'],
-          method: ['create', 'update', 'delete']
-        }
-      }));
+      next(
+        null,
+        hook.alter("actionInfo", {
+          name: "webhook",
+          title: "Webhook",
+          description: "Allows you to trigger an external interface.",
+          priority: 0,
+          defaults: {
+            handler: ["after"],
+            method: ["create", "update", "delete"],
+          },
+        })
+      );
     }
     static settingsForm(req, res, next) {
       next(null, [
         {
-          label: 'Webhook URL',
-          key: 'url',
-          inputType: 'text',
-          defaultValue: '',
+          label: "Webhook URL",
+          key: "url",
+          inputType: "text",
+          defaultValue: "",
           input: true,
-          placeholder: 'Call the following URL.',
-          prefix: '',
-          suffix: '',
-          type: 'textfield',
+          placeholder: "Call the following URL.",
+          prefix: "",
+          suffix: "",
+          type: "textfield",
           multiple: false,
           validate: {
-            required: true
-          }
+            required: true,
+          },
         },
         {
           conditional: {
-            eq: '',
+            eq: "",
             when: null,
-            show: ''
+            show: "",
           },
-          type: 'checkbox',
+          type: "checkbox",
           validate: {
-            required: false
+            required: false,
           },
           persistent: true,
           protected: false,
           defaultValue: false,
-          key: 'block',
-          label: 'Block request for Webhook feedback',
+          key: "block",
+          label: "Block request for Webhook feedback",
           hideLabel: false,
           tableView: true,
-          inputType: 'checkbox',
-          input: true
+          inputType: "checkbox",
+          input: true,
         },
         {
-          label: 'Authorize User',
-          key: 'username',
-          inputType: 'text',
-          defaultValue: '',
+          conditional: {
+            eq: "",
+            when: null,
+            show: "",
+          },
+          type: "checkbox",
+          validate: {
+            required: false,
+          },
+          persistent: true,
+          protected: false,
+          defaultValue: false,
+          key: "forwardToken",
+          label: "Forward JWT token",
+          hideLabel: false,
+          tableView: true,
+          inputType: "checkbox",
           input: true,
-          placeholder: 'User for Basic Authentication',
-          type: 'textfield',
-          multiple: false
         },
         {
-          label: 'Authorize Password',
-          key: 'password',
-          inputType: 'password',
-          defaultValue: '',
+          label: "Authorize User",
+          key: "username",
+          inputType: "text",
+          defaultValue: "",
           input: true,
-          placeholder: 'Password for Basic Authentication',
-          type: 'textfield',
-          multiple: false
-        }
+          placeholder: "User for Basic Authentication",
+          type: "textfield",
+          multiple: false,
+        },
+        {
+          label: "Authorize Password",
+          key: "password",
+          inputType: "password",
+          defaultValue: "",
+          input: true,
+          placeholder: "Password for Basic Authentication",
+          type: "textfield",
+          multiple: false,
+        },
       ]);
     }
 
@@ -104,7 +127,7 @@ module.exports = function(router) {
      */
     resolve(handler, method, req, res, next, setActionItemMessage) {
       const settings = this.settings;
-      const logerr = (...args) => log(req, ...args, '#resolve');
+      const logerr = (...args) => log(req, ...args, "#resolve");
 
       /**
        * Util function to handle success for a potentially blocking request.
@@ -114,8 +137,8 @@ module.exports = function(router) {
        * @returns {*}
        */
       const handleSuccess = (data, response) => {
-        setActionItemMessage('Webhook succeeded', response);
-        if (!_.get(settings, 'block') || _.get(settings, 'block') === false) {
+        setActionItemMessage("Webhook succeeded", response);
+        if (!_.get(settings, "block") || _.get(settings, "block") === false) {
           return;
         }
 
@@ -136,11 +159,11 @@ module.exports = function(router) {
        * @returns {*}
        */
       const handleError = (data, response) => {
-        setActionItemMessage('Webhook failed', response);
-        const message = data ? (data.message || data) : response.statusMessage;
+        setActionItemMessage("Webhook failed", response);
+        const message = data ? data.message || data : response.statusMessage;
         logerr(message);
 
-        if (!_.get(settings, 'block') || _.get(settings, 'block') === false) {
+        if (!_.get(settings, "block") || _.get(settings, "block") === false) {
           return;
         }
 
@@ -148,42 +171,51 @@ module.exports = function(router) {
       };
 
       try {
-        if (!hook.alter('resolve', true, this, handler, method, req, res)) {
-          setActionItemMessage('Alter to resolve');
+        if (!hook.alter("resolve", true, this, handler, method, req, res)) {
+          setActionItemMessage("Alter to resolve");
           return next();
         }
 
         // Continue if were not blocking
-        if (!_.get(settings, 'block') || _.get(settings, 'block') === false) {
+        if (!_.get(settings, "block") || _.get(settings, "block") === false) {
           next(); // eslint-disable-line callback-return
         }
 
         const options = {};
 
         // Get the settings
-        if (_.has(settings, 'username')) {
-          options.username = _.get(settings, 'username');
+        if (_.has(settings, "username")) {
+          options.username = _.get(settings, "username");
         }
-        if (_.has(settings, 'password')) {
-          options.password = _.get(settings, 'password');
+        if (_.has(settings, "password")) {
+          options.password = _.get(settings, "password");
+        }
+        if (_.has(settings, "forwardToken")) {
+          options.forwardToken = _.get(settings, "forwardToken");
         }
 
         // Cant send a webhook if the url isn't set.
-        if (!_.has(settings, 'url')) {
-          return handleError('No url given in the settings');
+        if (!_.has(settings, "url")) {
+          return handleError("No url given in the settings");
         }
 
         let url = this.settings.url;
-        const submission = _.get(res, 'resource.item');
+        const submission = _.get(res, "resource.item");
         const payload = {
-          request: _.get(req, 'body'),
-          response: _.get(req, 'response'),
-          submission: (submission && submission.toObject) ? submission.toObject() : {},
-          params: _.get(req, 'params')
+          request: _.get(req, "body"),
+          response: _.get(req, "response"),
+          submission:
+            submission && submission.toObject ? submission.toObject() : {},
+          params: _.get(req, "params"),
         };
 
         // Interpolate URL if possible
-        if (res && res.resource && res.resource.item && res.resource.item.data) {
+        if (
+          res &&
+          res.resource &&
+          res.resource.item &&
+          res.resource.item.data
+        ) {
           url = util.FormioUtils.interpolate(url, res.resource.item.data);
         }
 
@@ -200,58 +232,70 @@ module.exports = function(router) {
           throw err;
         };
 
-      const makeRequest = (url, method, credentials, payload)=> {
-        const options = {
-          method,
-          headers: {
-            'content-type': 'application/json',
-            'accept': 'application/json',
-          },
+        const makeRequest = (url, method, reqOpts, payload) => {
+          const headers = {
+            "content-type": "application/json",
+            accept: "application/json",
+          };
+          if (reqOpts.forwardToken) {
+            const token = req.header("x-jwt-token");
+            if (token) {
+              headers["x-jwt-token"] = token;
+            }
+          }
+          const options = {
+            method,
+            headers,
+          };
+          if (reqOpts.username) {
+            // eslint-disable-next-line max-len
+            options.headers.Authorization = `Basic ${Buffer.from(
+              `${reqOpts.username}:${reqOpts.password}`
+            ).toString("base64")}`;
+          }
+
+          if (payload) {
+            options.body = JSON.stringify(payload);
+          }
+
+          fetch(url, options)
+            .then((response) => {
+              if (!response.bodyUsed) {
+                if (response.ok) {
+                  return handleSuccess({}, response);
+                } else {
+                  return handleError({}, response);
+                }
+              } else {
+                if (response.ok) {
+                  return response
+                    .json()
+                    .then((body) => handleSuccess(body, response));
+                } else {
+                  return response
+                    .json()
+                    .then((body) => handleError(body, response));
+                }
+              }
+            })
+            .catch((err) => {
+              handleError(err);
+            });
         };
-        if (credentials.username) {
-        // eslint-disable-next-line max-len
-        options.headers.Authorization = `Basic ${Buffer.from(`${credentials.username}:${credentials.password}`).toString('base64')}`;
-        }
-
-        if (payload) {
-          options.body = JSON.stringify(payload);
-        }
-
-        fetch(url, options)
-        .then((response) => {
-          if (!response.bodyUsed) {
-            if (response.ok) {
-              return handleSuccess({}, response);
-            }
-            else {
-              return handleError({}, response);
-            }
-          }
-          else {
-            if (response.ok) {
-              return response.json().then((body) => handleSuccess(body, response));
-            }
-            else {
-              return response.json().then((body) => handleError(body, response));
-            }
-          }
-        })
-        .catch((err) => {
-          handleError(err);
-        });
-    };
 
         // Make the request.
-        setActionItemMessage('Making request', {
+        setActionItemMessage("Making request", {
           method: req.method,
           url,
-          options
+          options,
         });
-        url = req.method!=='DELETE' ? url: `${url}?${new URLSearchParams(req.params).toString()}`;
+        url =
+          req.method !== "DELETE"
+            ? url
+            : `${url}?${new URLSearchParams(req.params).toString()}`;
         makeRequest(url, req.method, options, payload);
-      }
-      catch (e) {
-        setActionItemMessage('Error occurred', e, 'error');
+      } catch (e) {
+        setActionItemMessage("Error occurred", e, "error");
         handleError(e);
       }
     }
