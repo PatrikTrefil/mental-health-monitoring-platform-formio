@@ -81,7 +81,16 @@
         {
           "label": "ID",
           "type": "textfield",
-          "key": "id"
+          "key": "id",
+          "validate": {
+            "required": true,
+            "minLength": "",
+            "maxLength": 16,
+            "pattern": "U-[a-zA-Z0-9]+",
+            "custom": "",
+            "customPrivate": false
+          },
+          "unique": true
         },
         {
           "type": "password",
@@ -94,7 +103,10 @@
           "label": "Password",
           "inputType": "password",
           "tableView": false,
-          "input": true
+          "input": true,
+          "validate": {
+            "required": true
+          }
         },
         {
           "type": "button",
@@ -161,7 +173,16 @@
         {
           "label": "ID",
           "type": "textfield",
-          "key": "id"
+          "key": "id",
+          "validate": {
+            "required": true,
+            "minLength": "",
+            "maxLength": 16,
+            "pattern": "Z-[a-zA-Z0-9]+",
+            "custom": "",
+            "customPrivate": false
+          },
+          "unique": true
         },
         {
           "type": "password",
@@ -174,7 +195,10 @@
           "label": "Password",
           "inputType": "password",
           "tableView": false,
-          "input": true
+          "input": true,
+          "validate": {
+            "required": true
+          }
         },
         {
           "type": "button",
@@ -251,7 +275,10 @@
           "label": "Email",
           "inputType": "email",
           "tableView": true,
-          "input": true
+          "input": true,
+          "validate": {
+            "required": true
+          }
         },
         {
           "type": "password",
@@ -264,7 +291,10 @@
           "label": "Password",
           "inputType": "password",
           "tableView": false,
-          "input": true
+          "input": true,
+          "validate": {
+            "required": true
+          }
         },
         {
           "type": "button",
@@ -316,7 +346,10 @@
           "label": "E-mail",
           "inputType": "email",
           "tableView": true,
-          "input": true
+          "input": true,
+          "validate": {
+            "required": true
+          }
         },
         {
           "type": "password",
@@ -330,7 +363,10 @@
           "label": "Heslo",
           "inputType": "password",
           "tableView": false,
-          "input": true
+          "input": true,
+          "validate": {
+            "required": true
+          }
         },
         {
           "type": "button",
@@ -397,7 +433,15 @@
         {
           "label": "ID",
           "type": "textfield",
-          "key": "id"
+          "key": "id",
+          "validate": {
+            "required": true,
+            "minLength": "",
+            "maxLength": 16,
+            "pattern": "U-[a-zA-Z0-9]+",
+            "custom": "",
+            "customPrivate": false
+          }
         },
         {
           "type": "password",
@@ -411,7 +455,10 @@
           "label": "Heslo",
           "inputType": "password",
           "tableView": false,
-          "input": true
+          "input": true,
+          "validate": {
+            "required": true
+          }
         },
         {
           "theme": "primary",
@@ -477,7 +524,15 @@
         {
           "label": "ID",
           "type": "textfield",
-          "key": "id"
+          "key": "id",
+          "validate": {
+            "required": true,
+            "minLength": "",
+            "maxLength": 16,
+            "pattern": "Z-[a-zA-Z0-9]+",
+            "custom": "",
+            "customPrivate": false
+          }
         },
         {
           "type": "password",
@@ -491,7 +546,10 @@
           "label": "Heslo",
           "inputType": "password",
           "tableView": false,
-          "input": true
+          "input": true,
+          "validate": {
+            "required": true
+          }
         },
         {
           "theme": "primary",
@@ -529,7 +587,10 @@
         {
           "label": "ID",
           "type": "textfield",
-          "key": "id"
+          "key": "id",
+          "validate": {
+            "required": true
+          }
         },
         {
           "type": "password",
@@ -543,7 +604,10 @@
           "label": "Heslo",
           "inputType": "password",
           "tableView": false,
-          "input": true
+          "input": true,
+          "validate": {
+            "required": true
+          }
         },
         {
           "theme": "primary",
