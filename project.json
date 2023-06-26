@@ -26,9 +26,13 @@
       "title": "Klient/Pacient",
       "description": ""
     },
-    "zamestnanec": {
-      "title": "Zamestnanec",
-      "description": ""
+    "spravce-dotazniku": {
+      "title": "Správce dotazníků",
+      "description": "Může vytvářet/mazat/editovat dotazníky"
+    },
+    "zadavatel-dotazniku": {
+      "title": "Zadavatel dotazníků",
+      "description": "Může zadávat dotazníky klientům/pacientům"
     }
   },
   "resources": {
@@ -39,24 +43,20 @@
       "path": "klientpacient",
       "submissionAccess": [
         {
-          "type": "create_all",
-          "roles": ["administrator", "zamestnanec"]
+          "type": "create_own",
+          "roles": ["administrator", "spravce-dotazniku", "zadavatel-dotazniku"]
         },
         {
           "type": "read_all",
-          "roles": ["administrator", "zamestnanec"]
+          "roles": ["administrator", "spravce-dotazniku", "zadavatel-dotazniku"]
         },
         {
           "type": "update_all",
-          "roles": ["administrator", "zamestnanec"]
+          "roles": ["administrator", "spravce-dotazniku", "zadavatel-dotazniku"]
         },
         {
           "type": "delete_all",
-          "roles": ["administrator", "zamestnanec"]
-        },
-        {
-          "type": "create_own",
-          "roles": []
+          "roles": ["administrator", "spravce-dotazniku", "zadavatel-dotazniku"]
         },
         {
           "type": "read_own",
@@ -74,7 +74,12 @@
       "access": [
         {
           "type": "read_all",
-          "roles": ["klientPacient", "administrator", "zamestnanec"]
+          "roles": [
+            "klientPacient",
+            "administrator",
+            "spravce-dotazniku",
+            "zadavatel-dotazniku"
+          ]
         }
       ],
       "components": [
@@ -98,7 +103,7 @@
           "protected": true,
           "suffix": "",
           "prefix": "",
-          "placeholder": "Enter your password.",
+          "placeholder": "Vaše heslo",
           "key": "password",
           "label": "Password",
           "inputType": "password",
@@ -124,31 +129,27 @@
         }
       ]
     },
-    "zamestnanec": {
-      "title": "Zaměstnanec",
+    "spravce-dotazniku": {
+      "title": "Správce dotazníků",
       "type": "resource",
-      "name": "zamestnanec",
-      "path": "zamestnanec",
+      "name": "spravce-dotazniku",
+      "path": "zamestnanec/spravce-dotazniku",
       "submissionAccess": [
         {
-          "type": "create_all",
-          "roles": ["administrator", "zamestnanec"]
+          "type": "create_own",
+          "roles": ["administrator", "spravce-dotazniku"]
         },
         {
           "type": "read_all",
-          "roles": ["administrator", "zamestnanec"]
+          "roles": ["administrator", "spravce-dotazniku", "zadavatel-dotazniku"]
         },
         {
           "type": "update_all",
-          "roles": ["administrator", "zamestnanec"]
+          "roles": ["administrator", "spravce-dotazniku"]
         },
         {
           "type": "delete_all",
-          "roles": ["administrator", "zamestnanec"]
-        },
-        {
-          "type": "create_own",
-          "roles": []
+          "roles": ["administrator", "spravce-dotazniku"]
         },
         {
           "type": "read_own",
@@ -166,7 +167,7 @@
       "access": [
         {
           "type": "read_all",
-          "roles": ["administrator", "zamestnanec"]
+          "roles": ["administrator", "spravce-dotazniku"]
         }
       ],
       "components": [
@@ -178,7 +179,7 @@
             "required": true,
             "minLength": "",
             "maxLength": 16,
-            "pattern": "Z-[a-zA-Z0-9]+",
+            "pattern": "SD-[a-zA-Z0-9]+",
             "custom": "",
             "customPrivate": false
           },
@@ -190,7 +191,95 @@
           "protected": true,
           "suffix": "",
           "prefix": "",
-          "placeholder": "Enter your password.",
+          "placeholder": "Vaše heslo",
+          "key": "password",
+          "label": "Password",
+          "inputType": "password",
+          "tableView": false,
+          "input": true,
+          "validate": {
+            "required": true
+          }
+        },
+        {
+          "type": "button",
+          "theme": "primary",
+          "disableOnInvalid": true,
+          "action": "submit",
+          "block": false,
+          "rightIcon": "",
+          "leftIcon": "",
+          "size": "md",
+          "key": "submit",
+          "tableView": false,
+          "label": "Submit",
+          "input": true
+        }
+      ]
+    },
+    "zadavatel-dotazniku": {
+      "title": "Zadavel dotazníků",
+      "type": "resource",
+      "name": "zadavatel-dotazniku",
+      "path": "zamestnanec/zadavatel-dotazniku",
+      "submissionAccess": [
+        {
+          "type": "create_own",
+          "roles": ["administrator", "zadavatel-dotazniku", "spravce-dotazniku"]
+        },
+        {
+          "type": "read_all",
+          "roles": ["administrator", "zadavatel-dotazniku", "spravce-dotazniku"]
+        },
+        {
+          "type": "update_all",
+          "roles": ["administrator", "zadavatel-dotazniku", "spravce-dotazniku"]
+        },
+        {
+          "type": "delete_all",
+          "roles": ["administrator", "zadavatel-dotazniku", "spravce-dotazniku"]
+        },
+        {
+          "type": "read_own",
+          "roles": []
+        },
+        {
+          "type": "update_own",
+          "roles": []
+        },
+        {
+          "type": "delete_own",
+          "roles": []
+        }
+      ],
+      "access": [
+        {
+          "type": "read_all",
+          "roles": ["administrator", "zadavatel-dotazniku", "spravce-dotazniku"]
+        }
+      ],
+      "components": [
+        {
+          "label": "ID",
+          "type": "textfield",
+          "key": "id",
+          "validate": {
+            "required": true,
+            "minLength": "",
+            "maxLength": 16,
+            "pattern": "ZD-[a-zA-Z0-9]+",
+            "custom": "",
+            "customPrivate": false
+          },
+          "unique": true
+        },
+        {
+          "type": "password",
+          "persistent": true,
+          "protected": true,
+          "suffix": "",
+          "prefix": "",
+          "placeholder": "Vaše heslo",
           "key": "password",
           "label": "Password",
           "inputType": "password",
@@ -223,7 +312,7 @@
       "path": "admin",
       "submissionAccess": [
         {
-          "type": "create_all",
+          "type": "create_own",
           "roles": ["administrator"]
         },
         {
@@ -237,10 +326,6 @@
         {
           "type": "delete_all",
           "roles": ["administrator"]
-        },
-        {
-          "type": "create_own",
-          "roles": []
         },
         {
           "type": "read_own",
@@ -392,29 +477,25 @@
       "access": [
         {
           "type": "read_all",
-          "roles": ["zamestnanec", "administrator"]
+          "roles": ["spravce-dotazniku", "administrator", "zadavatel-dotazniku"]
         }
       ],
       "submissionAccess": [
         {
-          "type": "create_all",
-          "roles": ["zamestnanec", "administrator"]
+          "type": "create_own",
+          "roles": ["spravce-dotazniku", "administrator", "zadavatel-dotazniku"]
         },
         {
           "type": "read_all",
-          "roles": ["zamestnanec", "administrator"]
+          "roles": ["spravce-dotazniku", "administrator", "zadavatel-dotazniku"]
         },
         {
           "type": "update_all",
-          "roles": ["zamestnanec", "administrator"]
+          "roles": ["spravce-dotazniku", "administrator", "zadavatel-dotazniku"]
         },
         {
           "type": "delete_all",
-          "roles": ["zamestnanec", "administrator"]
-        },
-        {
-          "type": "create_own",
-          "roles": []
+          "roles": ["spravce-dotazniku", "administrator", "zadavatel-dotazniku"]
         },
         {
           "type": "read_own",
@@ -441,7 +522,8 @@
             "pattern": "U-[a-zA-Z0-9]+",
             "custom": "",
             "customPrivate": false
-          }
+          },
+          "unique": true
         },
         {
           "type": "password",
@@ -449,7 +531,7 @@
           "protected": true,
           "suffix": "",
           "prefix": "",
-          "placeholder": "Zadejte heslo",
+          "placeholder": "Vaše heslo",
           "key": "password",
           "lockKey": true,
           "label": "Heslo",
@@ -475,37 +557,33 @@
         }
       ]
     },
-    "zamestnanecRegister": {
-      "title": "Zaměstnanec registrace",
-      "name": "zamestnanecRegister",
-      "path": "zamestnanec/register",
+    "spravce-dotaznikuRegister": {
+      "title": "Správce dotazníků registrace",
+      "name": "spravce-dotaznikuRegister",
+      "path": "spravce-dotazniku/register",
       "type": "form",
       "access": [
         {
           "type": "read_all",
-          "roles": ["zamestnanec", "administrator"]
+          "roles": ["spravce-dotazniku", "administrator"]
         }
       ],
       "submissionAccess": [
         {
-          "type": "create_all",
-          "roles": ["zamestnanec", "administrator"]
+          "type": "create_own",
+          "roles": ["spravce-dotazniku", "administrator"]
         },
         {
           "type": "read_all",
-          "roles": ["zamestnanec", "administrator"]
+          "roles": ["spravce-dotazniku", "administrator"]
         },
         {
           "type": "update_all",
-          "roles": ["zamestnanec", "administrator"]
+          "roles": ["spravce-dotazniku", "administrator"]
         },
         {
           "type": "delete_all",
-          "roles": ["zamestnanec", "administrator"]
-        },
-        {
-          "type": "create_own",
-          "roles": []
+          "roles": ["spravce-dotazniku", "administrator"]
         },
         {
           "type": "read_own",
@@ -529,7 +607,7 @@
             "required": true,
             "minLength": "",
             "maxLength": 16,
-            "pattern": "Z-[a-zA-Z0-9]+",
+            "pattern": "SD-[a-zA-Z0-9]+",
             "custom": "",
             "customPrivate": false
           }
@@ -540,7 +618,7 @@
           "protected": true,
           "suffix": "",
           "prefix": "",
-          "placeholder": "Zadejte heslo",
+          "placeholder": "Vaše heslo",
           "key": "password",
           "lockKey": true,
           "label": "Heslo",
@@ -566,7 +644,94 @@
         }
       ]
     },
-    "klientPacientZamestnanecLogin": {
+    "zadavatel-dotaznikuRegister": {
+      "title": "Zadavatel dotazníků registrace",
+      "name": "zadavatel-dotaznikuRegister",
+      "path": "zadavatel-dotazniku/register",
+      "type": "form",
+      "access": [
+        {
+          "type": "read_all",
+          "roles": ["zadavatel-dotazniku", "administrator", "spravce-dotazniku"]
+        }
+      ],
+      "submissionAccess": [
+        {
+          "type": "create_own",
+          "roles": ["zadavatel-dotazniku", "administrator", "spravce-dotazniku"]
+        },
+        {
+          "type": "read_all",
+          "roles": ["zadavatel-dotazniku", "administrator", "spravce-dotazniku"]
+        },
+        {
+          "type": "update_all",
+          "roles": ["zadavatel-dotazniku", "administrator", "spravce-dotazniku"]
+        },
+        {
+          "type": "delete_all",
+          "roles": ["zadavatel-dotazniku", "administrator", "spravce-dotazniku"]
+        },
+        {
+          "type": "read_own",
+          "roles": []
+        },
+        {
+          "type": "update_own",
+          "roles": []
+        },
+        {
+          "type": "delete_own",
+          "roles": []
+        }
+      ],
+      "components": [
+        {
+          "label": "ID",
+          "type": "textfield",
+          "key": "id",
+          "validate": {
+            "required": true,
+            "minLength": "",
+            "maxLength": 16,
+            "pattern": "ZD-[a-zA-Z0-9]+",
+            "custom": "",
+            "customPrivate": false
+          }
+        },
+        {
+          "type": "password",
+          "persistent": true,
+          "protected": true,
+          "suffix": "",
+          "prefix": "",
+          "placeholder": "Vaše heslo",
+          "key": "password",
+          "lockKey": true,
+          "label": "Heslo",
+          "inputType": "password",
+          "tableView": false,
+          "input": true,
+          "validate": {
+            "required": true
+          }
+        },
+        {
+          "theme": "primary",
+          "disableOnInvalid": true,
+          "action": "submit",
+          "block": false,
+          "rightIcon": "",
+          "leftIcon": "",
+          "size": "md",
+          "key": "submit",
+          "label": "Odeslat",
+          "input": true,
+          "type": "button"
+        }
+      ]
+    },
+    "klientPacientspravce-dotaznikuLogin": {
       "title": "Login",
       "name": "login",
       "path": "login",
@@ -598,7 +763,7 @@
           "protected": true,
           "suffix": "",
           "prefix": "",
-          "placeholder": "Zadejte heslo",
+          "placeholder": "Vaše heslo",
           "key": "password",
           "lockKey": true,
           "label": "Heslo",
@@ -635,10 +800,19 @@
       "priority": 11,
       "settings": {}
     },
-    "zamestnanecSave": {
+    "spravce-dotaznikuSave": {
       "title": "Save Submission",
       "name": "save",
-      "form": "zamestnanec",
+      "form": "spravce-dotazniku",
+      "handler": ["before"],
+      "method": ["create", "update"],
+      "priority": 11,
+      "settings": {}
+    },
+    "zadavatel-dotaznikuSave": {
+      "title": "Save Submission",
+      "name": "save",
+      "form": "zadavatel-dotazniku",
       "handler": ["before"],
       "method": ["create", "update"],
       "priority": 11,
@@ -669,12 +843,16 @@
     "login": {
       "name": "login",
       "title": "Login",
-      "form": "klientPacientZamestnanecLogin",
+      "form": "klientPacientspravce-dotaznikuLogin",
       "priority": 2,
       "method": ["create"],
       "handler": ["before"],
       "settings": {
-        "resources": ["klientPacient", "zamestnanec"],
+        "resources": [
+          "klientPacient",
+          "spravce-dotazniku",
+          "zadavatel-dotazniku"
+        ],
         "username": "id",
         "password": "password"
       }
@@ -694,15 +872,30 @@
         }
       }
     },
-    "zamestnanecRegisterSave": {
+    "spravce-dotaznikuRegisterSave": {
       "title": "Save Submission",
       "name": "save",
-      "form": "zamestnanecRegister",
+      "form": "spravce-dotaznikuRegister",
       "handler": ["before"],
       "method": ["create"],
       "priority": 10,
       "settings": {
-        "resource": "zamestnanec",
+        "resource": "spravce-dotazniku",
+        "fields": {
+          "id": "id",
+          "password": "password"
+        }
+      }
+    },
+    "zadavatel-dotaznikuRegisterSave": {
+      "title": "Save Submission",
+      "name": "save",
+      "form": "zadavatel-dotaznikuRegister",
+      "handler": ["before"],
+      "method": ["create"],
+      "priority": 10,
+      "settings": {
+        "resource": "zadavatel-dotazniku",
         "fields": {
           "id": "id",
           "password": "password"
@@ -735,23 +928,49 @@
         "association": "new"
       }
     },
-    "zamestnanecRole": {
+    "spravce-dotaznikuRole": {
       "name": "role",
       "title": "Role Assignment",
-      "form": "zamestnanec",
+      "form": "spravce-dotazniku",
       "priority": 1,
       "handler": ["after"],
       "method": ["create"],
       "settings": {
-        "role": "zamestnanec",
+        "role": "spravce-dotazniku",
         "type": "add",
         "association": "new"
       }
     },
-    "adminRoleForZamestnanec": {
+    "zadavatel-dotaznikuRole": {
       "name": "role",
       "title": "Role Assignment",
-      "form": "zamestnanec",
+      "form": "zadavatel-dotazniku",
+      "priority": 1,
+      "handler": ["after"],
+      "method": ["create"],
+      "settings": {
+        "role": "zadavatel-dotazniku",
+        "type": "add",
+        "association": "new"
+      }
+    },
+    "zadavatel-dotaznikuProSpravceRole": {
+      "name": "role",
+      "title": "Role Assignment",
+      "form": "spravce-dotazniku",
+      "priority": 1,
+      "handler": ["after"],
+      "method": ["create"],
+      "settings": {
+        "role": "zadavatel-dotazniku",
+        "type": "add",
+        "association": "new"
+      }
+    },
+    "adminRoleForspravce-dotazniku": {
+      "name": "role",
+      "title": "Role Assignment",
+      "form": "spravce-dotazniku",
       "priority": 1,
       "handler": ["after"],
       "method": ["create"],
