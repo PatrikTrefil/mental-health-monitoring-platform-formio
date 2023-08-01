@@ -90,8 +90,6 @@
           "validate": {
             "required": true,
             "minLength": "",
-            "maxLength": 16,
-            "pattern": "U-[a-zA-Z0-9]+",
             "custom": "",
             "customPrivate": false
           },
@@ -110,7 +108,9 @@
           "tableView": false,
           "input": true,
           "validate": {
-            "required": true
+            "required": true,
+            "minLength": 8,
+            "pattern":"^(?=.*[A-Z])(?=.*\\d)(?=.*[a-z]).*"
           }
         },
         {
@@ -178,8 +178,6 @@
           "validate": {
             "required": true,
             "minLength": "",
-            "maxLength": 16,
-            "pattern": "SD-[a-zA-Z0-9]+",
             "custom": "",
             "customPrivate": false
           },
@@ -198,7 +196,9 @@
           "tableView": false,
           "input": true,
           "validate": {
-            "required": true
+            "required": true,
+            "minLength": 8,
+            "pattern":"^(?=.*[A-Z])(?=.*\\d)(?=.*[a-z]).*"
           }
         },
         {
@@ -266,8 +266,6 @@
           "validate": {
             "required": true,
             "minLength": "",
-            "maxLength": 16,
-            "pattern": "ZD-[a-zA-Z0-9]+",
             "custom": "",
             "customPrivate": false
           },
@@ -286,7 +284,9 @@
           "tableView": false,
           "input": true,
           "validate": {
-            "required": true
+            "required": true,
+            "minLength": 8,
+            "pattern":"^(?=.*[A-Z])(?=.*\\d)(?=.*[a-z]).*"
           }
         },
         {
@@ -518,8 +518,6 @@
           "validate": {
             "required": true,
             "minLength": "",
-            "maxLength": 16,
-            "pattern": "U-[a-zA-Z0-9]+",
             "custom": "",
             "customPrivate": false
           },
@@ -539,7 +537,9 @@
           "tableView": false,
           "input": true,
           "validate": {
-            "required": true
+            "required": true,
+            "minLength": 8,
+            "pattern":"^(?=.*[A-Z])(?=.*\\d)(?=.*[a-z]).*"
           }
         },
         {
@@ -560,7 +560,7 @@
     "spravce-dotaznikuRegister": {
       "title": "Správce dotazníků registrace",
       "name": "spravce-dotaznikuRegister",
-      "path": "spravce-dotazniku/register",
+      "path": "zamestnanec/spravce-dotazniku/register",
       "type": "form",
       "access": [
         {
@@ -605,9 +605,6 @@
           "key": "id",
           "validate": {
             "required": true,
-            "minLength": "",
-            "maxLength": 16,
-            "pattern": "SD-[a-zA-Z0-9]+",
             "custom": "",
             "customPrivate": false
           }
@@ -626,7 +623,9 @@
           "tableView": false,
           "input": true,
           "validate": {
-            "required": true
+            "required": true,
+            "minLength": 8,
+            "pattern":"^(?=.*[A-Z])(?=.*\\d)(?=.*[a-z]).*"
           }
         },
         {
@@ -647,7 +646,7 @@
     "zadavatel-dotaznikuRegister": {
       "title": "Zadavatel dotazníků registrace",
       "name": "zadavatel-dotaznikuRegister",
-      "path": "zadavatel-dotazniku/register",
+      "path": "zamestnanec/zadavatel-dotazniku/register",
       "type": "form",
       "access": [
         {
@@ -693,8 +692,6 @@
           "validate": {
             "required": true,
             "minLength": "",
-            "maxLength": 16,
-            "pattern": "ZD-[a-zA-Z0-9]+",
             "custom": "",
             "customPrivate": false
           }
@@ -713,7 +710,9 @@
           "tableView": false,
           "input": true,
           "validate": {
-            "required": true
+            "required": true,
+            "minLength": 8,
+            "pattern":"^(?=.*[A-Z])(?=.*\\d)(?=.*[a-z]).*"
           }
         },
         {
@@ -771,7 +770,9 @@
           "tableView": false,
           "input": true,
           "validate": {
-            "required": true
+            "required": true,
+            "minLength": 8,
+            "pattern":"^(?=.*[A-Z])(?=.*\\d)(?=.*[a-z]).*"
           }
         },
         {
