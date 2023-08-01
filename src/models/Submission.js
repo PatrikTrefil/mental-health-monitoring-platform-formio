@@ -77,9 +77,21 @@ module.exports = function(formio) {
 
       // The data associated with this submission.
       data: {
-        type: formio.mongoose.Schema.Types.Mixed,
-        required: true
-      }
+          type: new formio.mongoose.Schema(
+            {
+              // If the data property containes a field with key id,
+              // make it an immutable string. (used to prevent change of
+              // a ID (username) by any user)
+              id: {
+                type: formio.mongoose.Schema.Types.String,
+                immutable: true,
+                required: false,
+              },
+            },
+            {strict: false}
+          ),
+          required: true,
+        }
     }))
   });
 
@@ -89,7 +101,9 @@ module.exports = function(formio) {
 
   // Ensure that all _id's within the data are ObjectId's
   model.schema.pre('save', function(next) {
-    utils.ensureIds(this.data);
+    // We want to check only own propertis (not properties added by mongoose)
+    // so we call .toObject(). (worked without it before, because the schema was simpler)
+    utils.ensureIds(this.data.toObject());
     next();
   });
 
